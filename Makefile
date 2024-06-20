@@ -1,7 +1,21 @@
-default: tetris
+CC=gcc
+CXX=g++
+CFLAGS=
+DFLAGS=-g -Og
+BFLAGS=-O2
+LFLAGS=
+LIBS=
 
-tetris: main.cc
-	g++ -o tetris main.cc
+debug: override CFLAGS+=$(DFLAGS)
+debug: all
+
+build: override CFLAGS+=$(BFLAGS)
+build: all
+
+all:
+
+tetris.o: tetris.cc
+	$(CXX) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm tetris 
+	/bin/rm -f *.o
