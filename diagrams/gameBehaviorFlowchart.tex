@@ -1,0 +1,71 @@
+\documentclass{article}
+
+%page size
+\usepackage[paperheight=12in,paperwidth=14in]{geometry}
+%remove page numbers
+\pagestyle{empty}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+
+\begin{document}
+
+%color definitions
+\definecolor{startpointcolor}{RGB}{255, 179, 178}
+\definecolor{bordercolor}{RGB}{0, 0, 0}
+\definecolor{processcolor}{RGB}{255, 216, 176}
+\definecolor{decisioncolor}{RGB}{179, 254, 174}
+\definecolor{arrowcolor}{RGB}{162, 177, 195}
+
+%object shape definitions
+\tikzstyle{startpoint} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, font=\normalsize, draw=bordercolor, line width=1, fill=startpointcolor]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, font=\normalsize, draw=bordercolor, line width=1, fill=processcolor]
+\tikzstyle{decision} = [diamond, text width=2cm, minimum width=3cm, minimum height=1cm, text centered, font=\normalsize, draw=bordercolor, line width=1, fill=decisioncolor]
+\tikzstyle{arrow} = [thick, align=center, draw=arrowcolor, line width=2, ->, >=stealth]
+
+\begin{tikzpicture}[node distance=2cm]
+	\node[startpoint](gameStart) at (5,0){Game Start};
+	\node[process](spawnBrick) at (5,-2){Spawn Brick};
+	\draw[arrow] (gameStart) -- (spawnBrick);
+	\node[decision](checkSpawn) at (5,-6){Was Spawn Successful?};
+	\draw[arrow] (spawnBrick) -- (checkSpawn);
+	
+	%successful spawn (play turn)
+	\node[process](endTurn) at (0,-6){End Turn};
+	\draw[arrow] (checkSpawn) -- (endTurn) node[midway,above] {\bf Yes};
+	\node[process](userInput) at (0,-8){Get User Input};
+	\draw[arrow] (endTurn) -- (userInput);
+	\node[process](rotateBrick) at (0,-10){Rotate Brick Using User Input};
+	\draw[arrow] (userInput) -- (rotateBrick);
+	\node[process](advanceBrick) at (0,-12){Advance Brick Downwards};
+	\draw[arrow] (rotateBrick) -- (advanceBrick);
+	\node[decision](checkAdvance) at (0,-16){Was Brick Movement Successful?};
+	\draw[arrow] (advanceBrick) -- (checkAdvance);
+	
+		%successful movement (move brick downwards)
+		\node[process](delayNormal) at (-5,-16){Delay};
+		\draw[arrow] (checkAdvance) -- (delayNormal) node[midway,above] {\bf Yes};
+		\draw[arrow] (delayNormal) |- (endTurn);
+		\node[text width=4cm, align=left](delayNormalCaveat) at (-5,-17.5){\textcolor{red}{Delay may be shortened if player requests the brick be sent downwards}};
+		
+		%unsuccessful movement (set brick down and spawn new brick)
+		\node[process](placeBrick) at (7,-16){'Place' Brick};
+		\draw[arrow] (checkAdvance) -- (placeBrick) node[midway,above] {\bf\hspace*{-2.5cm} No};
+		\node[decision](checkRowFull) at (12,-13){Are Any Rows Full?};
+		\draw[arrow] (placeBrick) -| (checkRowFull);
+		\node[process](deleteRow) at (7,-13){DeleteFullRows};
+		\draw[arrow] (checkRowFull) -- (deleteRow) node[midway, above] {\bf Yes};
+		\node[process](moveRows) at (7,-11){Move Rows Down};
+		\draw[arrow] (deleteRow) -- (moveRows);
+		\node[process](delayRowDelete) at (14,-9){Delay};
+		\draw[arrow] (moveRows) |- (delayRowDelete);
+		\draw[arrow] (checkRowFull) -| (delayRowDelete) node[midway, right] {\bf\raisebox{0.75cm}{\hspace*{0.1cm}No}};
+		\draw[arrow] (delayRowDelete) |- (spawnBrick);
+
+
+
+	%unsuccessful spawn (end game)
+	\node[startpoint](gameEnd) at (10,-6){Game Over};
+	\draw[arrow] (checkSpawn) -- (gameEnd) node[midway,above] {\bf No};
+\end{tikzpicture}
+\end{document}
