@@ -6,7 +6,7 @@
  * Action as indicated by the controller
  */
 enum Action {
-	NONE = 0, LEFT, RIGHT, DOWN
+	NONE = 0, LEFT, RIGHT, DOWN, ROTATE_LEFT, ROTATE_RIGHT
 };
 
 /**

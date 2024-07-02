@@ -39,7 +39,29 @@ class Game {
 	inline unsigned int getScore() const { return score; }
 
   private:
-	FrameTimer timer;
+	/**
+	 * Spawns the next brick into the game and generates a new next brick
+	 * Returns true iff the spawn was successful
+	 */
+	bool spawn();
+
+	/**
+	 * Effects the desired action upon the active piece
+	 * Returns true iff the action was successful
+	 * Action must be a movement action (LEFT, DOWN, RIGHT, LEFT_ROTATION, RIGHT_ROTATION)
+	 */
+	bool move(Action direction);
+
+	/**
+	 * Places the current brick where it is
+	 * Then checks for and deletes any full rows and shifts any
+	 * rows above them down
+	 * Updates score
+	 * NOTE: this method may cause animations to be played
+	 */
+	void place();
+
+	UpdateTimer timer;
 	Board* board;
 	unsigned int score;
 
