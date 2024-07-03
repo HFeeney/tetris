@@ -1,5 +1,7 @@
 #pragma once
 
+#include <curses.h>
+
 #include "Board.hh"
 
 /**
@@ -8,14 +10,14 @@
  */
 class Display {
   public:
-	inline Display(const Board* const board) : board(board) { }
+	Display(WINDOW* screen, const Board* const board);
 	Display(const Display&) = delete;
 	Display& operator=(const Display&) = delete;
 
 	/**
 	 * Draws the board to the screen
 	 */
-	virtual void display() = 0;
+	void display();
 
   protected:
 	const Board* const board;

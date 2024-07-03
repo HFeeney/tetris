@@ -15,7 +15,7 @@ enum Action {
  */
 class Controller {
   public:
-	inline Controller(const Board* const board) : board(board) { }
+	inline Controller() = default;
 	Controller(const Controller&) = delete;
 	Controller& operator=(const Controller&) = delete;
 
@@ -24,7 +24,4 @@ class Controller {
 	 * May block up to the allocated number of milliseconds
 	 */
 	virtual Action getAction(unsigned int maxTime) = 0;
-
-  protected:
-	const Board* const board;
 };
