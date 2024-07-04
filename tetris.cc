@@ -10,14 +10,14 @@
  * Temp function
  * Creates and plays a game
  */
-void createGame(WINDOW* screen) {
+void createGame() {
 	//   1. create board
 	//   2. create display and controller
 	//   3. create game
 	//   4. play game
 
 	Board gameboard(10, 20);
-	Display screenDisplay(screen, &gameboard);
+	Display screenDisplay(&gameboard);
 	PlayerController playerInput;
 	Game game(&gameboard, &screenDisplay, &playerInput);
 	game.play();
@@ -30,7 +30,10 @@ int main() {
 	intrflush(stdscr, FALSE);
 	keypad(stdscr, TRUE);
 
-	createGame(stdscr);
+	//createGame();
+	Board gameboard(10, 20);
+	Display screenDisplay(&gameboard);
+	while(true);
 
 	endwin();
 	return EXIT_SUCCESS;
