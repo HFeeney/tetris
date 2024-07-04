@@ -14,8 +14,13 @@ struct Board {
 	Board& operator=(const Board&) = delete;
 	~Board();
 
-	// board 2d array and sizes
+	// board size values
 	const unsigned char boardWidth, boardHeight;
+
+	// colors of pieces at points on the board
+	// EMPTY indicates that the tile does not have a piece in it
+	// the board should only show placed pieces; the active piece should not be
+	// included on the board
 	Color* const* const board;
 	
 	// current piece and queued piece, respectively
