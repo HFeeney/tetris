@@ -24,5 +24,14 @@ void createGame(WINDOW* screen) {
 }
 
 int main() {
+	initscr();
+	cbreak();
+	noecho();
+	intrflush(stdscr, FALSE);
+	keypad(stdscr, TRUE);
+
+	createGame(stdscr);
+
+	endwin();
 	return EXIT_SUCCESS;
 }
