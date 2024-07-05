@@ -16,7 +16,7 @@ void createGame() {
 	//   3. create game
 	//   4. play game
 
-	Board gameboard(10, 20);
+	Board gameboard(20, 10);
 	Display screenDisplay(&gameboard);
 	PlayerController playerInput;
 	Game game(&gameboard, &screenDisplay, &playerInput);
@@ -25,11 +25,20 @@ void createGame() {
 
 int main() {
 	initscr();
+	start_color();
 	cbreak();
 	noecho();
 	curs_set(0);
 	intrflush(stdscr, FALSE);
 	keypad(stdscr, TRUE);
+	
+	// init colors
+	init_pair(EMPTY, COLOR_WHITE, COLOR_BLACK);
+	init_pair(BLUE, COLOR_WHITE, COLOR_BLUE);
+	init_pair(YELLOW, COLOR_WHITE, COLOR_YELLOW);
+	init_pair(ORANGE, COLOR_WHITE, COLOR_RED);
+	init_pair(GREEN, COLOR_WHITE, COLOR_GREEN);
+	init_pair(PURPLE, COLOR_WHITE, COLOR_MAGENTA);
 
 	createGame();
 

@@ -25,6 +25,6 @@ struct Piece {
 	
 	// array of local coordinates of the tiles in this piece
 	// formatted in the form of:
-	//   { x1, y1, x2, y2, ... }
+	//   { y1, x1, y2, x2, ... }
 	char* vertexList;
 };

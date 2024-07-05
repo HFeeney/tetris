@@ -42,10 +42,45 @@ Display::~Display() {
 	delwin(gameWindow);
 }
 
+/**
+ * Prints the piece in the given window
+ * piece is printed in the window at its given position
+ */
+void wprintPiece(WINDOW* win, const Piece& piece) {
+	// print new char
+	wattrset(win, COLOR_PAIR(piece.pieceColor));
+	for (unsigned char i = 0; i < piece.len; /*incrementation done on next line*/) {
+		wmove(win, piece.yPosition + piece.vertexList[i++], 2 * (piece.xPosition + piece.vertexList[i++]));
+		waddch(win, ' ');
+		waddch(win, ' ');
+	}
+}
+
 void Display::display() {
+	// clear board and next
+	wclear(boardWindow);
+	wclear(nextWindow);
+	// redraw borders for windows
+	// draw boxes around windows
+	wborder(boardWindow, '|', '|', '-', '-', '+', '+', '+', '+');
+	wborder(nextWindow, '|', '|', '-', '-', '+', '+', '+', '+');
+	waddstr(nextWindow, "NEXT:");
+	
 	// print board
+	for (int line = 0; line < board->boardHeight; line++) {
+		wmove(boardWindow, line + 1, 1);
+		for (int col = 0; col < board->boardWidth; col++) {
+			wattrset(boardWindow, COLOR_PAIR(board->board[line][col]));
+			waddch(boardWindow, ' ');
+			waddch(boardWindow, ' ');
+		}
+	}
+	wprintPiece(boardWindow, board->activePiece);
+	wrefresh(boardWindow);
 
 	// print next
+	wprintPiece(nextWindow, board->nextPiece);
+	wrefresh(nextWindow);
 
 	// print score
 	char scorestr[SIDE_PANEL_WIDTH - 1];
