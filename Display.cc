@@ -25,12 +25,12 @@ Display::Display(const Board* const board) : board(board) {
 	scoreWindow = derwin(gameWindow, SCORE_PANEL_HEIGHT, SIDE_PANEL_WIDTH, NEXT_PANEL_HEIGHT + 1, 2 * board->boardWidth + 3);
 
 	// draw boxes around windows
-	wborder(boardWindow, '|', '|', '-', '-', '+', '+', '+', '+');
+	wborder(boardWindow, 0, 0, 0, 0, 0, 0, 0, 0);
 	wrefresh(boardWindow);
-	wborder(nextWindow, '|', '|', '-', '-', '+', '+', '+', '+');
+	wborder(nextWindow, 0, 0, 0, 0, 0, 0, 0, 0);
 	waddstr(nextWindow, "NEXT:");
 	wrefresh(nextWindow);
-	wborder(scoreWindow, '|', '|', '-', '-', '+', '+', '+', '+');
+	wborder(scoreWindow, 0, 0, 0, 0, 0, 0, 0, 0);
 	waddstr(scoreWindow, "SCORE:");
 	wrefresh(scoreWindow);
 }
@@ -62,8 +62,8 @@ void Display::display() {
 	wclear(nextWindow);
 	// redraw borders for windows
 	// draw boxes around windows
-	wborder(boardWindow, '|', '|', '-', '-', '+', '+', '+', '+');
-	wborder(nextWindow, '|', '|', '-', '-', '+', '+', '+', '+');
+	wborder(boardWindow, 0, 0, 0, 0, 0, 0, 0, 0);
+	wborder(nextWindow, 0, 0, 0, 0, 0, 0, 0, 0);
 	waddstr(nextWindow, "NEXT:");
 	
 	// print board
