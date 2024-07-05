@@ -1,15 +1,17 @@
 #include "Game.hh"
 
+#include <unistd.h>
+
 void Game::play() {
 	// while piece successfully spawns continue to play game
 	while (spawn()) {
-		display->display();
 		// play with current piece
 		do {
 			display->display();
 			// check for user movements
 			timer.nextUpdate();
 			do {
+				usleep(1000 * INPUT_DELAY_MS);
 				Action action = controller->getAction(timer.timeRemaining());
 				switch(action) {
 					case LEFT:

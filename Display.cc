@@ -62,7 +62,9 @@ void Display::display() {
 	wclear(nextWindow);
 	// redraw borders for windows
 	// draw boxes around windows
+	wattrset(boardWindow, COLOR_PAIR(EMPTY));
 	wborder(boardWindow, 0, 0, 0, 0, 0, 0, 0, 0);
+	wattrset(nextWindow, COLOR_PAIR(EMPTY));
 	wborder(nextWindow, 0, 0, 0, 0, 0, 0, 0, 0);
 	waddstr(nextWindow, "NEXT:");
 	
