@@ -30,10 +30,7 @@ int main() {
 	intrflush(stdscr, FALSE);
 	keypad(stdscr, TRUE);
 
-	//createGame();
-	Board gameboard(10, 20);
-	Display screenDisplay(&gameboard);
-	while(true);
+	createGame();
 
 	endwin();
 	return EXIT_SUCCESS;

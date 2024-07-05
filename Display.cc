@@ -43,5 +43,16 @@ Display::~Display() {
 }
 
 void Display::display() {
-	// TODO
+	// print board
+
+	// print next
+
+	// print score
+	char scorestr[SIDE_PANEL_WIDTH - 1];
+	snprintf(scorestr, SIDE_PANEL_WIDTH, "%*i", SIDE_PANEL_WIDTH - 2, board->score);
+	scorestr[SIDE_PANEL_WIDTH] = '\0';
+	for (char* s = scorestr; *s; s++) if (*s == ' ') *s = '0';
+	wmove(scoreWindow, 1, 1);
+	waddstr(scoreWindow, scorestr);
+	wrefresh(scoreWindow);
 }

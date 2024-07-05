@@ -26,4 +26,7 @@ struct Board {
 	// current piece and queued piece, respectively
 	// the current piece should also be represented as tiles on the board
 	Piece activePiece, nextPiece;
+
+	// player score
+	unsigned int score;
 };

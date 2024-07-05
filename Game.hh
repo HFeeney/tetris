@@ -21,7 +21,6 @@ class Game {
 	inline Game(Board* board, Display* display, Controller* controller) :
 		timer(FRAME_TIME_MS),
 		board(board),
-		score(0),
 		display(display),
 		controller(controller) { }
 	Game(const Game&) = delete;
@@ -32,11 +31,6 @@ class Game {
 	 * Does not return until game finishes
 	 */
 	void play();
-
-	/**
-	 * Returns the score of the game
-	 */
-	inline unsigned int getScore() const { return score; }
 
   private:
 	/**
@@ -63,7 +57,6 @@ class Game {
 
 	UpdateTimer timer;
 	Board* board;
-	unsigned int score;
 
 	Display* display;
 	Controller* controller;

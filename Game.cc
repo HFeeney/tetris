@@ -3,8 +3,10 @@
 void Game::play() {
 	// while piece successfully spawns continue to play game
 	while (spawn()) {
+		display->display();
 		// play with current piece
 		do {
+			display->display();
 			// check for user movements
 			timer.nextUpdate();
 			do {
@@ -20,6 +22,7 @@ void Game::play() {
 					case NONE:
 						break;
 				}
+				display->display();
 			} while (!timer.elapsed());
 		} while (move(DOWN));
 		place();
@@ -28,10 +31,12 @@ void Game::play() {
 
 bool Game::spawn() {
 	// TODO
+	return true;
 }
 
 bool Game::move(Action direction) {
 	// TODO
+	return true;
 }
 
 void Game::place() {
