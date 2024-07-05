@@ -27,6 +27,7 @@ int main() {
 	initscr();
 	cbreak();
 	noecho();
+	curs_set(0);
 	intrflush(stdscr, FALSE);
 	keypad(stdscr, TRUE);
 
