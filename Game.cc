@@ -37,7 +37,79 @@ bool Game::spawn() {
 }
 
 bool Game::move(Action direction) {
-	// TODO
+    // Simulate making the move, recording new piece attributes after action.
+    unsigned char newX = board->activePiece.xPosition, 
+                  newY = board->activePiece.yPosition;
+    unsigned char activePieceLen = board->activePiece.len;
+    char newVertexList[activePieceLen];
+    for (unsigned char i = 0; i < activePieceLen; i++) {
+        newVertexList[i] = board->activePiece.vertexList[i];
+    }
+
+    switch(direction) {
+        case LEFT:
+            newX--;
+            break;
+        case DOWN:
+            newY++;
+            break;
+        case RIGHT:
+            newX++;
+            break;
+        case ROTATE_LEFT:
+            // Iterate through coordinate pairs and apply rotation to them.
+            for (unsigned char i = 0; i < activePieceLen; i += 2) {
+                char x = newVertexList[i + 1];
+                char y = newVertexList[i];
+
+                // Apply left rotation. x = -y, y = x
+                newVertexList[i + 1] = -y;
+                newVertexList[i] = x;
+            }
+            break;
+        case ROTATE_RIGHT:
+            // Iterate through coordinate pairs and apply rotation to them.
+            for (unsigned char i = 0; i < activePieceLen; i += 2) {
+                char x = newVertexList[i + 1];
+                char y = newVertexList[i];
+
+                // Apply right rotation. x = y, y = -x
+                newVertexList[i + 1] = y;
+                newVertexList[i] = -x;
+            }
+            break;
+        case NONE:
+            break;
+    }
+
+    // To know if movement was successful, check whether piece's tiles will
+    // - be contained within board
+    // - not be overlapping with any other existing tiles
+    // after making this move.
+    for (unsigned char i = 0; i < activePieceLen; i += 2) {
+        char tileX = newX + newVertexList[i + 1];
+        char tileY = newY + newVertexList[i];
+
+        // In bounds check.
+        if (tileX < 0 || tileX >= board->boardWidth || tileY < 0
+                || tileY >= board->boardHeight) {
+            return false;
+        }
+
+        // Overlap check.
+        if (board->board[tileY][tileX] != EMPTY) {
+            return false;
+        }
+    }
+
+    // The move is valid. Make the move by updating the board's active piece.
+    // - coordinates
+    // - vertex list
+    board->activePiece.xPosition = newX;
+    board->activePiece.yPosition = newY;
+    for (unsigned char i = 0; i < activePieceLen; i++) {
+        board->activePiece.vertexList[i] = newVertexList[i];
+    }
 	return true;
 }
 

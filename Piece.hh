@@ -8,7 +8,8 @@
  * An example of this struct is the three way connector piece:
  * 
  *       X
- *      XXX
+ *       XX
+ *       X
  * 
  * This piece would have a vertexList of { 0, 0, -1, 0, 0, 1, 1, 0 },
  * and would rotate around the center tile
