@@ -76,6 +76,8 @@ bool Game::move(Action direction) {
             newX++;
             break;
         case ROTATE_LEFT:
+            // do not rotate 'o' blocks
+            if (board->activePiece.pieceColor == YELLOW) break;
             // Iterate through coordinate pairs and apply rotation to them.
             for (unsigned char i = 0; i < activePieceLen; i += 2) {
                 char x = newVertexList[i + 1];
@@ -87,6 +89,8 @@ bool Game::move(Action direction) {
             }
             break;
         case ROTATE_RIGHT:
+            // do not rotate 'o' blocks
+            if (board->activePiece.pieceColor == YELLOW) break;
             // Iterate through coordinate pairs and apply rotation to them.
             for (unsigned char i = 0; i < activePieceLen; i += 2) {
                 char x = newVertexList[i + 1];
