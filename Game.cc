@@ -3,6 +3,7 @@
 #include <unistd.h>
 
 void Game::play() {
+    board->nextPiece = newPiece();
 	// while piece successfully spawns continue to play game
 	while (spawn()) {
 		// play with current piece
@@ -32,7 +33,25 @@ void Game::play() {
 }
 
 bool Game::spawn() {
-	// TODO
+    // move new piece onto board
+    board->activePiece = board->nextPiece;
+    // get next piece
+    board->nextPiece = newPiece();
+    // center new piece
+    board->activePiece.xPosition = board->boardWidth / 2;
+    // find and set y position as high up as contains piece within board
+    char min = 0;
+    for (unsigned char i = 0; i < board->activePiece.len; i += 2) {
+        if (board->activePiece.vertexList[i] < min) min = board->activePiece.vertexList[i];
+    }
+    board->activePiece.yPosition = -min;
+
+    // check overlap with other pieces
+    for (unsigned char i = 0; i < board->activePiece.len; i += 2) {
+        if (board->board[board->activePiece.yPosition + board->activePiece.vertexList[i]][board->activePiece.xPosition + board->activePiece.vertexList[i + 1]] != EMPTY) {
+            return false;
+        }
+    }
 	return true;
 }
 
@@ -114,5 +133,5 @@ bool Game::move(Action direction) {
 }
 
 void Game::place() {
-	// TODO
+	// TODO (just fill in board[][] with active piece data)
 }

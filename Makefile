@@ -14,7 +14,7 @@ build: all
 
 all: tetris
 
-tetris: tetris.o Board.o Display.o Game.o PlayerController.o UpdateTimer.o
+tetris: tetris.o Board.o Display.o Game.o Piece.o PlayerController.o UpdateTimer.o
 	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
 
 Board.o: Board.cc Board.hh Color.hh Piece.hh
@@ -24,6 +24,9 @@ Display.o: Display.cc Display.hh Board.hh Color.hh Piece.hh
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
 Game.o: Game.cc Game.hh UpdateTimer.hh Display.hh Board.hh Color.hh Piece.hh Controller.hh
+	$(CXX) $(CFLAGS) -c -o $@ $<
+
+Piece.o: Piece.cc Piece.hh Color.hh
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
 PlayerController.o: PlayerController.cc PlayerController.hh Controller.hh Board.hh Color.hh Piece.hh

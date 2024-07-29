@@ -1,4 +1,5 @@
-#include <stdlib.h>
+#include <cstdlib>
+#include <ctime>
 #include <curses.h>
 
 #include "Board.hh"
@@ -31,14 +32,17 @@ int main() {
 	curs_set(0);
 	intrflush(stdscr, FALSE);
 	keypad(stdscr, TRUE);
-	
+	srand(time(nullptr));
+
 	// init colors
 	init_pair(EMPTY, COLOR_WHITE, COLOR_BLACK);
 	init_pair(BLUE, COLOR_WHITE, COLOR_BLUE);
 	init_pair(YELLOW, COLOR_WHITE, COLOR_YELLOW);
-	init_pair(ORANGE, COLOR_WHITE, COLOR_RED);
+	init_pair(RED, COLOR_WHITE, COLOR_RED);
 	init_pair(GREEN, COLOR_WHITE, COLOR_GREEN);
 	init_pair(PURPLE, COLOR_WHITE, COLOR_MAGENTA);
+	init_pair(ORANGE, COLOR_WHITE, COLOR_WHITE);
+	init_pair(LILAC, COLOR_WHITE, COLOR_CYAN);
 
 	createGame();
 
