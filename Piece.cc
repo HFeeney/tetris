@@ -21,7 +21,7 @@ Piece newPiece() {
 }
 
 Color randomColor() {
-	return static_cast<Color>((rand() % (sizeof(Color) - 1)) + 1);
+	return static_cast<Color>((rand() % 7) + 1);
 }
 
 Piece newPiece(Color color) {
@@ -36,13 +36,13 @@ Piece newPiece(Color color) {
 
 	switch (color) {
 		case BLUE:
-			vl[2] = 0;
-			vl[3] = -1;
-			vl[4] = 0;
-			vl[5] = -2;
-			vl[6] = 0;
-			vl[7] = 1;
-			ret.xPosition = 2;
+			vl[2] = -1;
+			vl[3] = 0;
+			vl[4] = -2;
+			vl[5] = 0;
+			vl[6] = 1;
+			vl[7] = 0;
+			ret.xPosition = 1;
 			ret.yPosition = 2;
 			break;
 		case YELLOW:
@@ -52,7 +52,7 @@ Piece newPiece(Color color) {
 			vl[5] = 1;
 			vl[6] = -1;
 			vl[7] = 1;
-			ret.xPosition = 2;
+			ret.xPosition = 1;
 			ret.yPosition = 2;
 			break;
 		case RED:
@@ -62,7 +62,7 @@ Piece newPiece(Color color) {
 			vl[5] = 1;
 			vl[6] = 0;
 			vl[7] = -1;
-			ret.xPosition = 2;
+			ret.xPosition = 1;
 			ret.yPosition = 2;
 			break;
 		case GREEN:
@@ -72,7 +72,7 @@ Piece newPiece(Color color) {
 			vl[5] = -1;
 			vl[6] = 0;
 			vl[7] = 1;
-			ret.xPosition = 2;
+			ret.xPosition = 1;
 			ret.yPosition = 2;
 			break;
 		case PURPLE:
@@ -82,7 +82,7 @@ Piece newPiece(Color color) {
 			vl[5] = 1;
 			vl[6] = -1;
 			vl[7] = 0;
-			ret.xPosition = 2;
+			ret.xPosition = 1;
 			ret.yPosition = 2;
 			break;
 		case ORANGE:
@@ -92,7 +92,7 @@ Piece newPiece(Color color) {
 			vl[5] = 1;
 			vl[6] = 0;
 			vl[7] = 1;
-			ret.xPosition = 2;
+			ret.xPosition = 1;
 			ret.yPosition = 2;
 			break;
 		case LILAC:
@@ -102,7 +102,7 @@ Piece newPiece(Color color) {
 			vl[5] = -1;
 			vl[6] = 0;
 			vl[7] = 1;
-			ret.xPosition = 2;
+			ret.xPosition = 1;
 			ret.yPosition = 2;
 			break;
 	}

@@ -33,18 +33,19 @@ void Game::play() {
 				usleep(1000 * INPUT_DELAY_MS);
 				Action action = controller->getAction(timer.timeRemaining());
 				switch(action) {
-					case LEFT:
 					case DOWN:
+                        goto forfeitAction;
+					case LEFT:
 					case RIGHT:
 					case ROTATE_LEFT:
 					case ROTATE_RIGHT:
-						move(action);
 						break;
 					case NONE:
 						break;
 				}
 				display->display();
 			} while (!timer.elapsed());
+            forfeitAction:;
 		} while (move(DOWN));
 		place();
 	}
@@ -157,7 +158,7 @@ bool Game::move(Action direction) {
 void Game::place() {
     // Iterate through the tiles of the current piece and add them to the
     // board.
-    for (unsigned char i = 0; i < board->activePiece.len; i++) {
+    for (unsigned char i = 0; i < board->activePiece.len; i += 2) {
         unsigned char tileX = board->activePiece.xPosition
                             + board->activePiece.vertexList[i + 1];
         unsigned char tileY = board->activePiece.yPosition

@@ -8,10 +8,10 @@
 #include "Board.hh"
 
 // delay between user actions
-#define INPUT_DELAY_MS 500
+#define INPUT_DELAY_MS 100
 
 // time between tile move-downs
-const unsigned int FRAME_TIME_MS = 1000;
+const unsigned int FRAME_TIME_MS = 600;
 
 /**
  * Class to manage a single game instance

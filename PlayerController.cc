@@ -2,7 +2,7 @@
 #include "curses.h"
 
 Action PlayerController::getAction(unsigned int maxTime) {
-    halfdelay(maxTime / 100); // Note: half delay accepts tenths of a second
+    timeout(maxTime);
     int input = getch();
 
     switch (input) {
