@@ -2,8 +2,13 @@
 #include "curses.h"
 
 Action PlayerController::getAction(unsigned int maxTime) {
+    // get input
     timeout(maxTime);
     int input = getch();
+
+    // consume all extra characters in the input stream
+    timeout(0);
+    while (getch() != ERR);
 
     switch (input) {
         case KEY_LEFT:

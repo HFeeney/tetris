@@ -39,6 +39,7 @@ void Game::play() {
 					case RIGHT:
 					case ROTATE_LEFT:
 					case ROTATE_RIGHT:
+                        move(action);
 						break;
 					case NONE:
 						break;
