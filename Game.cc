@@ -2,6 +2,24 @@
 
 #include <unistd.h>
 
+/** Returns true iff the given row in board contains only empty tiles. */
+bool rowEmpty(Board* board, unsigned char row);
+
+/** Returns true iff the given row in board contains only non-empty tiles. */
+bool rowFull(Board* board, unsigned char row);
+
+/** Sets all tiles in the given row in board to empty. */
+void clearRow(Board* board, unsigned char row);
+
+/**
+ * Moves a row from board down (to a higher index row), leaving the original
+ * row empty.
+ * - board: the board to shift a row on
+ * - row:   the row to be shifted
+ * - shift: a positive number of rows down to move the row
+ */
+void shiftRow(Board* board, unsigned char row, unsigned char shift);
+
 void Game::play() {
 	// while piece successfully spawns continue to play game
 	while (spawn()) {
@@ -114,5 +132,65 @@ bool Game::move(Action direction) {
 }
 
 void Game::place() {
-	// TODO
+    // Iterate through the tiles of the current piece and add them to the
+    // board.
+    for (unsigned char i = 0; i < board->activePiece.len; i++) {
+        unsigned char tileX = board->activePiece.xPosition
+                            + board->activePiece.vertexList[i + 1];
+        unsigned char tileY = board->activePiece.yPosition
+                            + board->activePiece.vertexList[i];
+        board->board[tileY][tileX] = board->activePiece.pieceColor;
+    }
+
+    // TODO: verify correct behavior with test case!
+    // Start search for full rows from the bottom, clearing them out as they're
+    // found. Non-full rows can be shifted down
+    unsigned char lastEmpty = 0;
+    unsigned char rowsDeleted = 0;
+    for (unsigned char i = board->boardHeight - 1; i >= 0; i--) {
+        if (rowFull(board, i)) {
+            clearRow(board, i);
+            rowsDeleted++;
+        } else if (!rowEmpty(board, i)) {
+            // Non-empty rows need to be shifted downwards by the number of
+            // deleted rows. Avoid attempting to shift by 0.
+            if (rowsDeleted > 0) {
+                shiftRow(board, i, rowsDeleted);
+            }
+        } else {
+            // An empty row was encountered, so no rows remain to be shifted.
+            break;
+        }
+    }
+}
+
+bool rowEmpty(Board* board, unsigned char row) {
+    for (unsigned char i = 0; i < board->boardWidth; i++) {
+        if (board->board[row][i] != EMPTY) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool rowFull(Board* board, unsigned char row) {
+    for (unsigned char i = 0; i < board->boardWidth; i++) {
+        if (board->board[row][i] == EMPTY) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void clearRow(Board* board, unsigned char row) {
+    for (unsigned char i = 0; i < board->boardWidth; i++) {
+        board->board[row][i] = EMPTY;
+    }
+}
+
+void shiftRow(Board* board, unsigned char row, unsigned char shift) {
+    for (unsigned char i = 0; i < board->boardWidth; i++) {
+        board->board[row + shift][i] = board->board[row][i];
+        board->board[row][i] = EMPTY; // Note: is this necessary?
+    }
 }
