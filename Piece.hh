@@ -27,5 +27,12 @@ struct Piece {
 	// array of local coordinates of the tiles in this piece
 	// formatted in the form of:
 	//   { y1, x1, y2, x2, ... }
-	char* vertexList;
+	char* vertexList = nullptr;
 };
+
+/**
+ * Randomly generates a new piece
+ * automatically sets xposition and yposition so that the piece has no
+ * negative absolute vertices
+ */
+Piece newPiece();

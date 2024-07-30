@@ -50,7 +50,7 @@ void wprintPiece(WINDOW* win, const Piece& piece) {
 	// print new char
 	wattrset(win, COLOR_PAIR(piece.pieceColor));
 	for (unsigned char i = 0; i < piece.len; /*incrementation done on next line*/) {
-		wmove(win, piece.yPosition + piece.vertexList[i++], 2 * (piece.xPosition + piece.vertexList[i++]));
+		wmove(win, piece.yPosition + piece.vertexList[i++] + 1, 2 * (piece.xPosition + piece.vertexList[i++]) + 1);
 		waddch(win, ' ');
 		waddch(win, ' ');
 	}

@@ -1,17 +1,20 @@
 #include "UpdateTimer.hh"
 
-UpdateTimer::UpdateTimer(const unsigned int updateInterval) {
-	// TODO
-}
+#include <algorithm>
+
+UpdateTimer::UpdateTimer(const unsigned int updateInterval) : 
+	updateInterval(updateInterval),
+	intervalEndpoint(std::chrono::steady_clock::now() + std::chrono::milliseconds(updateInterval)) { }
 
 unsigned int UpdateTimer::timeRemaining() {
-	// TODO
+	long long dur = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - intervalEndpoint).count();
+	return static_cast<unsigned int>(std::max(dur, 0ll));
 }
 
 bool UpdateTimer::elapsed() {
-	// TODO
+	return intervalEndpoint < std::chrono::steady_clock::now();
 }
 
 void UpdateTimer::nextUpdate() {
-	// TODO
+	intervalEndpoint = std::chrono::steady_clock::now() + std::chrono::milliseconds(updateInterval);
 }

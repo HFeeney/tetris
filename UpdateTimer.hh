@@ -1,12 +1,14 @@
 #pragma once
 
+#include <chrono>
+
 /**
  * A class to easily manage the time left in each game update
  */
 class UpdateTimer {
   public:
 	/**
-	 * Constructs a new update timer with the given update interval
+	 * Constructs a new update timer with the given update interval in milliseconds
 	 */
 	UpdateTimer(const unsigned int updateInterval);
 	UpdateTimer(const UpdateTimer&) = delete;
@@ -28,5 +30,6 @@ class UpdateTimer {
 	void nextUpdate();
 
   private:
-	// TODO: data representation for timer
+	const unsigned int updateInterval;
+	std::chrono::time_point<std::chrono::steady_clock> intervalEndpoint;
 };
