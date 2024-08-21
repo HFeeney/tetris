@@ -34,6 +34,7 @@ void Game::play() {
 				Action action = controller->getAction(timer.timeRemaining());
 				switch(action) {
 					case DOWN:
+                        board->score++;
                         goto forfeitAction;
 					case LEFT:
 					case RIGHT:
@@ -167,7 +168,6 @@ void Game::place() {
         board->board[tileY][tileX] = board->activePiece.pieceColor;
     }
 
-    // TODO: verify correct behavior with test case!
     // Start search for full rows from the bottom, clearing them out as they're
     // found. Non-full rows can be shifted down
     unsigned char lastEmpty = 0;
@@ -186,6 +186,22 @@ void Game::place() {
             // An empty row was encountered, so no rows remain to be shifted.
             break;
         }
+    }
+    switch (rowsDeleted) {
+        case 1:
+            board->score += 100;
+            break;
+        case 2:
+            board->score += 400;
+            break;
+        case 3:
+            board->score += 900;
+            break;
+        case 4:
+            board->score += 2000;
+            break;
+        default:
+            break;
     }
 }
 
@@ -216,6 +232,6 @@ void clearRow(Board* board, unsigned char row) {
 void shiftRow(Board* board, unsigned char row, unsigned char shift) {
     for (unsigned char i = 0; i < board->boardWidth; i++) {
         board->board[row + shift][i] = board->board[row][i];
-        board->board[row][i] = EMPTY; // Note: is this necessary?
+        board->board[row][i] = EMPTY;
     }	
 }
